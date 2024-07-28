@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { findOrCreateUser, updateUser } from "@/models/Users";
 
 const MOCK_USER = {
-  email: "james@irving-swift.com",
-  name: "James Irving-Swift",
+  email: "foo@bar.com",
+  name: "mr foo bar",
 };
 
 export const GET = async function contacts(req) {

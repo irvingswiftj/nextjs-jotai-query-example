@@ -21,7 +21,10 @@ export const contactsMutation = atomWithMutation(() => ({
   },
   onSuccess: (data, variables, context) => {
     const queryClient = useQueryClient();
-    queryClient.invalidateQueries({ queryKey: ["contacts"] });
+    queryClient.invalidateQueries({
+      queryKey: ["contacts"],
+      refetchType: "all",
+    });
   },
 }));
 
