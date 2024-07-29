@@ -1,5 +1,4 @@
 import { atomWithMutation, atomWithQuery } from "jotai-tanstack-query";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const contactsAtom = atomWithQuery(() => ({
   queryKey: ["contacts"],
@@ -18,12 +17,6 @@ export const contactsMutation = atomWithMutation(() => ({
     });
     const data = await res.json();
     return data;
-  },
-  onSuccess: (data, variables, context) => {
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries({
-      queryKey: ["contacts"],
-    });
   },
 }));
 
