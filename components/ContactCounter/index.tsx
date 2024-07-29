@@ -1,11 +1,10 @@
 "use client";
 
-import { contactsAtom, contactsMutation } from "@/app/providers";
+import { contactsMutation } from "@/store/contacts";
 import { useAtom } from "jotai";
 
 export default function ContactCounter() {
-  const [{ data: contacts = [], isPending, isError }] = useAtom(contactsAtom);
-  const [{ mutate, status }] = useAtom(contactsMutation);
+  const [{ data: contacts = [], mutate, status }] = useAtom(contactsMutation);
 
   const handleAddContact = () => {
     mutate([
@@ -20,10 +19,16 @@ export default function ContactCounter() {
 
   return (
     <>
-      <span>Contacts: {contacts.length}</span>
-      <a href="#" onClick={handleAddContact}>
-        Add contact
-      </a>
+      {["success", "idle"].indexOf(status) >= 0 ? (
+        <>
+          <span>Contacts: {contacts.length}</span>
+          <a href="#" onClick={handleAddContact}>
+            Add contact
+          </a>
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 }
