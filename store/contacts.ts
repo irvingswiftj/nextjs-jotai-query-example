@@ -1,20 +1,15 @@
-import { atomWithMutation } from "jotai-tanstack-query";
+import { queryOptions } from "@tanstack/react-query";
 
 const mutationKey = ["contacts"];
 
-export const contactsMutation = atomWithMutation(() => ({
+const getContacts = async () => {
+  const res = await fetch(`http://localhost:3000/api/contacts`);
+  return await res.json();
+};
+
+export const contactCounterOptions = queryOptions({
   queryKey: mutationKey,
   queryFn: async () => {
-    const res = await fetch(`/api/contacts`);
-    return res.json();
+    return await getContacts();
   },
-  mutationKey,
-  mutationFn: async (contact: Contact) => {
-    const res = await fetch(`/api/contacts`, {
-      method: "POST",
-      body: JSON.stringify(contact),
-    });
-    const data = await res.json();
-    return data;
-  },
-}));
+});
